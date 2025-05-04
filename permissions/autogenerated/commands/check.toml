@@ -1,0 +1,11 @@
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-check"
+description = "Enable the check command."
+commands.allow = ["check"]
+
+[[permission]]
+identifier = "deny-check"
+description = "Disable the check command."
+commands.deny = ["check"]

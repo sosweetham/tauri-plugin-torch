@@ -1,0 +1,11 @@
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-toggle"
+description = "Enable the toggle command."
+commands.allow = ["toggle"]
+
+[[permission]]
+identifier = "deny-toggle"
+description = "Disable the toggle command."
+commands.deny = ["toggle"]

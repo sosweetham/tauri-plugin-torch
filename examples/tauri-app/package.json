@@ -1,0 +1,45 @@
+{
+    "name": "tauri-app",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "tauri": "tauri"
+    },
+    "dependencies": {
+        "@tauri-apps/api": "^2.0.0",
+        "tauri-plugin-torch-api": "link:../.."
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "prettier": "^3.1.0",
+        "prettier-plugin-svelte": "^3.1.0",
+        "prettier-plugin-tailwindcss": "^0.6.11",
+        "@sveltejs/vite-plugin-svelte": "^5.0.0",
+        "@tauri-apps/cli": "^2.0.0",
+        "svelte": "^5.0.0",
+        "vite": "^6.0.0"
+    },
+    "prettier": {
+        "svelteSortOrder": "options-styles-scripts-markup",
+        "svelteStrictMode": true,
+        "svelteBracketNewLine": false,
+        "svelteAllowShorthand": false,
+        "svelteIndentScriptAndStyle": false,
+        "overrides": [
+            {
+                "files": "*.svelte",
+                "options": {
+                    "parser": "svelte"
+                }
+            }
+        ],
+        "plugins": [
+            "prettier-plugin-svelte",
+            "prettier-plugin-tailwindcss"
+        ]
+    }
+}
