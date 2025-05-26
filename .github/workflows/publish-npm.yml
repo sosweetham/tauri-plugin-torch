@@ -17,6 +17,6 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
             - run: npm i -g pnpm
             - run: pnpm install --frozen-lockfile
-            - run: pnpm publish --provenance --access public
+            - run: pnpm publish --provenance --access public --no-git-checks # no git checks so that it can be run from a release
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
