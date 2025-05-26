@@ -27,8 +27,7 @@
         "torch",
         "flash",
         "android",
-        "ios",
-        "hardware"
+        "ios"
     ],
     "scripts": {
         "build": "rollup -c",
