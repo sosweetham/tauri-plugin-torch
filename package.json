@@ -1,5 +1,5 @@
 {
-    "name": "tauri-plugin-torch-api",
+    "name": "@sosweetham/tauri-plugin-torch-api",
     "version": "0.1.0",
     "author": "SoSweetHam <ham@kodski.com>",
     "description": "A simple flash/torch control plugin for Tauri applications.",

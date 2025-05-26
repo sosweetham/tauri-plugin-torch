@@ -15,7 +15,7 @@ This project is a Tauri plugin which allows for flash control on iOS and Android
 ### Available Commands
 
 ```ts
-import { ping, toggle, check } from "tauri-plugin-torch-api";
+import { ping, toggle, check } from "@sosweetham/tauri-plugin-torch-api";
 async function toggleTorch() {
     const isTorchOn = await check();
     if (isTorchOn) {
