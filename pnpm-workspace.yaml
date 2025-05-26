@@ -1,0 +1,6 @@
+packages:
+  - examples/tauri-app
+  - ./
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - esbuild

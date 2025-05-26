@@ -10,7 +10,7 @@
 
 <script>
 import Greet from "./lib/Greet.svelte";
-import { toggle, check } from "tauri-plugin-torch-api";
+import { toggle, check } from "@sosweetham/tauri-plugin-torch-api";
 
 let response = "";
 
