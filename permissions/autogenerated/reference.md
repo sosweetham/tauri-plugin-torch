@@ -10,7 +10,6 @@ It allows access to all torch commands.
 
 #### This default permission set includes the following:
 
-- `allow-ping`
 - `allow-toggle`
 - `allow-check`
 
@@ -31,7 +30,7 @@ It allows access to all torch commands.
 </td>
 <td>
 
-Enable the check command.
+Enables the check command without any pre-configured scope.
 
 </td>
 </tr>
@@ -44,33 +43,7 @@ Enable the check command.
 </td>
 <td>
 
-Disable the check command.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`torch:allow-ping`
-
-</td>
-<td>
-
-Enables the ping command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`torch:deny-ping`
-
-</td>
-<td>
-
-Denies the ping command without any pre-configured scope.
+Denies the check command without any pre-configured scope.
 
 </td>
 </tr>
@@ -83,7 +56,7 @@ Denies the ping command without any pre-configured scope.
 </td>
 <td>
 
-Enable the toggle command.
+Enables the toggle command without any pre-configured scope.
 
 </td>
 </tr>
@@ -96,7 +69,7 @@ Enable the toggle command.
 </td>
 <td>
 
-Disable the toggle command.
+Denies the toggle command without any pre-configured scope.
 
 </td>
 </tr>

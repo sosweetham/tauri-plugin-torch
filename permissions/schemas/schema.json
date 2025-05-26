@@ -295,46 +295,34 @@
       "type": "string",
       "oneOf": [
         {
-          "description": "Enable the check command.",
+          "description": "Enables the check command without any pre-configured scope.",
           "type": "string",
           "const": "allow-check",
-          "markdownDescription": "Enable the check command."
+          "markdownDescription": "Enables the check command without any pre-configured scope."
         },
         {
-          "description": "Disable the check command.",
+          "description": "Denies the check command without any pre-configured scope.",
           "type": "string",
           "const": "deny-check",
-          "markdownDescription": "Disable the check command."
+          "markdownDescription": "Denies the check command without any pre-configured scope."
         },
         {
-          "description": "Enables the ping command without any pre-configured scope.",
-          "type": "string",
-          "const": "allow-ping",
-          "markdownDescription": "Enables the ping command without any pre-configured scope."
-        },
-        {
-          "description": "Denies the ping command without any pre-configured scope.",
-          "type": "string",
-          "const": "deny-ping",
-          "markdownDescription": "Denies the ping command without any pre-configured scope."
-        },
-        {
-          "description": "Enable the toggle command.",
+          "description": "Enables the toggle command without any pre-configured scope.",
           "type": "string",
           "const": "allow-toggle",
-          "markdownDescription": "Enable the toggle command."
+          "markdownDescription": "Enables the toggle command without any pre-configured scope."
         },
         {
-          "description": "Disable the toggle command.",
+          "description": "Denies the toggle command without any pre-configured scope.",
           "type": "string",
           "const": "deny-toggle",
-          "markdownDescription": "Disable the toggle command."
+          "markdownDescription": "Denies the toggle command without any pre-configured scope."
         },
         {
-          "description": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-ping`\n- `allow-toggle`\n- `allow-check`",
+          "description": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-toggle`\n- `allow-check`",
           "type": "string",
           "const": "default",
-          "markdownDescription": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-ping`\n- `allow-toggle`\n- `allow-check`"
+          "markdownDescription": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-toggle`\n- `allow-check`"
         }
       ]
     }

@@ -1,11 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
 "$schema" = "../../schemas/schema.json"
 
 [[permission]]
 identifier = "allow-toggle"
-description = "Enable the toggle command."
+description = "Enables the toggle command without any pre-configured scope."
 commands.allow = ["toggle"]
 
 [[permission]]
 identifier = "deny-toggle"
-description = "Disable the toggle command."
+description = "Denies the toggle command without any pre-configured scope."
 commands.deny = ["toggle"]
