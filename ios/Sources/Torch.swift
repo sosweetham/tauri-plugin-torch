@@ -14,10 +14,6 @@ class ToggleArgs: Decodable {
 
 class TorchPlugin: Plugin {
   var isOn = false
-  @objc public func ping(_ invoke: Invoke) throws {
-    let args = try invoke.parseArgs(PingArgs.self)
-    invoke.resolve(["value": args.value ?? ""])
-  }
 
   @objc public func toggle(_ invoke: Invoke) throws {
     let turnOn = try invoke.parseArgs(ToggleArgs.self).value ?? false

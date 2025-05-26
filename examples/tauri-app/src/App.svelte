@@ -10,7 +10,7 @@
 
 <script>
 import Greet from "./lib/Greet.svelte";
-import { ping, toggle, check } from "tauri-plugin-torch-api";
+import { toggle, check } from "tauri-plugin-torch-api";
 
 let response = "";
 
@@ -42,10 +42,6 @@ async function onTorch() {
 async function offTorch() {
     toggle(false).then(updateResponse).catch(updateResponse);
 }
-
-function _ping() {
-    ping("Pong!").then(updateResponse).catch(updateResponse);
-}
 </script>
 
 <main class="container">
@@ -70,10 +66,5 @@ function _ping() {
 
     <div class="row">
         <Greet />
-    </div>
-
-    <div>
-        <button onclick={_ping}>Ping</button>
-        <div>{@html response}</div>
     </div>
 </main>

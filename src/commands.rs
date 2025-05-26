@@ -1,16 +1,8 @@
-use tauri::{AppHandle, command, Runtime};
+use tauri::{command, AppHandle, Runtime};
 
 use crate::models::*;
 use crate::Result;
 use crate::TorchExt;
-
-#[command]
-pub(crate) async fn ping<R: Runtime>(
-    app: AppHandle<R>,
-    payload: PingRequest,
-) -> Result<PingResponse> {
-    app.torch().ping(payload)
-}
 
 #[command]
 pub(crate) async fn toggle<R: Runtime>(
@@ -21,8 +13,6 @@ pub(crate) async fn toggle<R: Runtime>(
 }
 
 #[command]
-pub(crate) async fn check<R: Runtime>(
-    app: AppHandle<R>,
-) -> Result<TorchResponse> {
+pub(crate) async fn check<R: Runtime>(app: AppHandle<R>) -> Result<TorchResponse> {
     app.torch().check()
 }
