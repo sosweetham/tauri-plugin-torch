@@ -307,6 +307,54 @@
           "markdownDescription": "Denies the check command without any pre-configured scope."
         },
         {
+          "description": "Enables the disable command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-disable",
+          "markdownDescription": "Enables the disable command without any pre-configured scope."
+        },
+        {
+          "description": "Denies the disable command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-disable",
+          "markdownDescription": "Denies the disable command without any pre-configured scope."
+        },
+        {
+          "description": "Enables the enable command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-enable",
+          "markdownDescription": "Enables the enable command without any pre-configured scope."
+        },
+        {
+          "description": "Denies the enable command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-enable",
+          "markdownDescription": "Denies the enable command without any pre-configured scope."
+        },
+        {
+          "description": "Enables the is_available command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-is-available",
+          "markdownDescription": "Enables the is_available command without any pre-configured scope."
+        },
+        {
+          "description": "Denies the is_available command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-is-available",
+          "markdownDescription": "Denies the is_available command without any pre-configured scope."
+        },
+        {
+          "description": "Enables the is_enabled command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-is-enabled",
+          "markdownDescription": "Enables the is_enabled command without any pre-configured scope."
+        },
+        {
+          "description": "Denies the is_enabled command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-is-enabled",
+          "markdownDescription": "Denies the is_enabled command without any pre-configured scope."
+        },
+        {
           "description": "Enables the toggle command without any pre-configured scope.",
           "type": "string",
           "const": "allow-toggle",
@@ -319,10 +367,10 @@
           "markdownDescription": "Denies the toggle command without any pre-configured scope."
         },
         {
-          "description": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-toggle`\n- `allow-check`",
+          "description": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-check`\n- `allow-disable`\n- `allow-enable`\n- `allow-is-available`\n- `allow-is-enabled`\n- `allow-toggle`",
           "type": "string",
           "const": "default",
-          "markdownDescription": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-toggle`\n- `allow-check`"
+          "markdownDescription": "This permission set configures which\ntorch features are by default exposed.\n\n#### Granted Permissions\n\nIt allows access to all torch commands.\n\n#### This default permission set includes:\n\n- `allow-check`\n- `allow-disable`\n- `allow-enable`\n- `allow-is-available`\n- `allow-is-enabled`\n- `allow-toggle`"
         }
       ]
     }

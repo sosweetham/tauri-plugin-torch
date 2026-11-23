@@ -7,11 +7,14 @@ torch features are by default exposed.
 
 It allows access to all torch commands.
 
-
 #### This default permission set includes the following:
 
-- `allow-toggle`
 - `allow-check`
+- `allow-disable`
+- `allow-enable`
+- `allow-is-available`
+- `allow-is-enabled`
+- `allow-toggle`
 
 ## Permission Table
 
@@ -44,6 +47,110 @@ Enables the check command without any pre-configured scope.
 <td>
 
 Denies the check command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:allow-disable`
+
+</td>
+<td>
+
+Enables the disable command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:deny-disable`
+
+</td>
+<td>
+
+Denies the disable command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:allow-enable`
+
+</td>
+<td>
+
+Enables the enable command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:deny-enable`
+
+</td>
+<td>
+
+Denies the enable command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:allow-is-available`
+
+</td>
+<td>
+
+Enables the is_available command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:deny-is-available`
+
+</td>
+<td>
+
+Denies the is_available command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:allow-is-enabled`
+
+</td>
+<td>
+
+Enables the is_enabled command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`torch:deny-is-enabled`
+
+</td>
+<td>
+
+Denies the is_enabled command without any pre-configured scope.
 
 </td>
 </tr>

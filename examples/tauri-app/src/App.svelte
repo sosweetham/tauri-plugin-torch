@@ -10,7 +10,13 @@
 
 <script>
 import Greet from "./lib/Greet.svelte";
-import { toggle, check } from "@sosweetham/tauri-plugin-torch-api";
+import {
+    disable,
+    enable,
+    isAvailable,
+    isEnabled,
+    toggle,
+} from "@sosweetham/tauri-plugin-torch-api";
 
 let response = "";
 
@@ -25,22 +31,27 @@ function updateResponse(returnValue) {
 }
 
 async function toggleTorch() {
-    const isTorchOn = await check();
-    if (isTorchOn) {
-        await toggle(false);
-        updateResponse("Torch is off");
-    } else {
-        await toggle(true);
-        updateResponse("Torch is on");
-    }
+    toggle()
+        .then((on) => updateResponse(on ? "Torch is on" : "Torch is off"))
+        .catch(updateResponse);
 }
 
 async function onTorch() {
-    toggle(true).then(updateResponse).catch(updateResponse);
+    enable()
+        .then(() => updateResponse("Torch is on"))
+        .catch(updateResponse);
 }
 
 async function offTorch() {
-    toggle(false).then(updateResponse).catch(updateResponse);
+    disable()
+        .then(() => updateResponse("Torch is off"))
+        .catch(updateResponse);
+}
+
+async function checkTorch() {
+    Promise.all([isAvailable(), isEnabled()])
+        .then(([available, enabled]) => updateResponse({ available, enabled }))
+        .catch(updateResponse);
 }
 </script>
 
@@ -48,6 +59,7 @@ async function offTorch() {
     <button onclick={onTorch}> Turn On Torch </button>
     <button onclick={offTorch}> Turn Off Torch </button>
     <button onclick={toggleTorch}> Toggle Torch </button>
+    <button onclick={checkTorch}> Check Torch </button>
     <h1>Welcome to Tauri!</h1>
 
     <div class="row">
