@@ -31,13 +31,14 @@ if (await isAvailable()) {
 }
 ```
 
-`enable`, `disable` and `toggle` reject when the device has no torch, the torch
-is temporarily unavailable (e.g. the device is overheating) or the camera is
-held by another app. On desktop, `isAvailable` and `isEnabled` return `false`
-and the other commands reject.
+`enable`, `disable` and `toggle()` reject when the device has no torch, the
+torch is temporarily unavailable (e.g. the device is overheating) or the camera
+is held by another app. On desktop, `isAvailable` and `isEnabled` return
+`false` and `enable`, `disable` and `toggle()` reject.
 
 `toggle(value)` and `check()` from earlier versions still work but are
-deprecated: use `enable`/`disable` and `isEnabled` instead.
+deprecated: use `enable`/`disable` and `isEnabled` instead. As before, they
+resolve to `null` instead of rejecting when the device has no torch.
 
 `isEnabled` reads the hardware state, so it also reflects the torch being
 turned off by the system or another app.

@@ -20,8 +20,9 @@ fn unsupported() -> crate::Error {
 
 /// Access to the torch APIs.
 ///
-/// Desktop has no torch: [`Self::is_available`], [`Self::is_enabled`], [`Self::check`] and
-/// [`Self::toggle`] report it as off, and [`Self::enable`] and [`Self::disable`] return an
+/// Desktop has no torch: [`Self::is_available`], [`Self::is_enabled`], [`Self::check`] and the
+/// legacy [`Self::toggle`] with `payload.value` set report it as off, and [`Self::enable`],
+/// [`Self::disable`] and [`Self::toggle`] without a value return an
 /// [`std::io::ErrorKind::Unsupported`] error.
 pub struct Torch<R: Runtime>(#[allow(dead_code)] AppHandle<R>);
 
@@ -38,8 +39,12 @@ impl<R: Runtime> Torch<R> {
 
     /// Turns the torch on or off when `payload.value` is set, and flips it otherwise. The
     /// response holds the new state.
-    pub fn toggle(&self, _payload: TorchRequest) -> Result<TorchResponse> {
-        Ok(TorchResponse { value: Some(false) })
+    pub fn toggle(&self, payload: TorchRequest) -> Result<TorchResponse> {
+        match payload.value {
+            // the deprecated `toggle(value)` reports a missing torch as off instead of failing
+            Some(_) => Ok(TorchResponse { value: Some(false) }),
+            None => Err(unsupported()),
+        }
     }
 
     /// Whether the torch is currently on.

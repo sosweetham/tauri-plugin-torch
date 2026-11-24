@@ -21,13 +21,11 @@ import {
 let response = "";
 
 function updateResponse(returnValue) {
-    response += `[${new Date().toLocaleTimeString()}]
-        ${
-            typeof returnValue === "string"
-                ? returnValue
-                : JSON.stringify(returnValue)
-        }
-        "<br>"`;
+    response += `[${new Date().toLocaleTimeString()}] ${
+        typeof returnValue === "string"
+            ? returnValue
+            : JSON.stringify(returnValue)
+    }\n`;
 }
 
 async function toggleTorch() {
@@ -60,6 +58,7 @@ async function checkTorch() {
     <button onclick={offTorch}> Turn Off Torch </button>
     <button onclick={toggleTorch}> Toggle Torch </button>
     <button onclick={checkTorch}> Check Torch </button>
+    <pre>{response}</pre>
     <h1>Welcome to Tauri!</h1>
 
     <div class="row">
