@@ -8,4 +8,11 @@ torch features are by default exposed.
 
 It allows access to all torch commands.
 """
-permissions = ["allow-toggle", "allow-check"]
+permissions = [
+  "allow-check",
+  "allow-disable",
+  "allow-enable",
+  "allow-is-available",
+  "allow-is-enabled",
+  "allow-toggle",
+]
