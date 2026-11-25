@@ -2,6 +2,11 @@
 
 This project is a Tauri plugin which allows for flash control on iOS and Android devices with a consistent API.
 
+On Android, turning on the torch while another component holds the camera
+normally fails. This plugin also works while a
+[barcode scanner](#barcode-scanner) scan is running, so apps can offer a
+flashlight button in their scanning UI.
+
 | Platform | Supported |
 | -------- | --------- |
 | Linux    | x         |
@@ -9,6 +14,55 @@ This project is a Tauri plugin which allows for flash control on iOS and Android
 | macOS    | x         |
 | Android  | ✓         |
 | iOS      | ✓         |
+
+## Install
+
+Add the Rust crate to your app:
+
+`src-tauri/Cargo.toml`
+
+```toml
+[dependencies]
+tauri-plugin-torch = "0.1"
+# alternatively with Git:
+tauri-plugin-torch = { git = "https://github.com/sosweetham/tauri-plugin-torch" }
+```
+
+And the JavaScript guest bindings:
+
+```sh
+pnpm add @sosweetham/tauri-plugin-torch-api
+# or
+npm add @sosweetham/tauri-plugin-torch-api
+# or
+yarn add @sosweetham/tauri-plugin-torch-api
+```
+
+## Usage
+
+Register the plugin with Tauri:
+
+`src-tauri/src/lib.rs`
+
+```rust
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_torch::init())
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+Then allow its commands in your capability:
+
+`src-tauri/capabilities/default.json`
+
+```json
+{
+    "permissions": ["core:default", "torch:default"]
+}
+```
 
 ## API
 
@@ -49,11 +103,121 @@ tries to turn the torch on.
 
 ### Barcode scanner
 
-On Android, turning on the torch while another component holds the camera
-normally fails. This plugin also works while a
+The torch can be controlled while a
 [tauri-plugin-barcode-scanner](https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/barcode-scanner)
-scan is running, so apps can offer a flashlight button in their scanning UI.
-This needs `tauri-plugin-barcode-scanner` 2.5.3 or newer.
+scan is running, e.g. to add a flashlight button to the scanning UI so codes
+can be read in the dark.
+
+On Android the scanner holds the camera during a scan, and the system rejects
+regular torch requests while it does. This plugin detects an active scan and
+drives the torch through the scanner's camera instead, which needs
+`tauri-plugin-barcode-scanner` **2.5.3 or newer**. With older versions,
+`enable`, `disable` and `toggle()` reject with "the camera is in use by
+another app" while scanning. iOS has no such restriction and works with any
+version.
+
+1. Install and register both plugins. The barcode scanner only builds for
+   Android and iOS, and the torch only does something there, so add both as
+   mobile-only dependencies (instead of the regular `[dependencies]` entry from
+   [Install](#install)):
+
+    `src-tauri/Cargo.toml`
+
+    ```toml
+    [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
+    tauri-plugin-barcode-scanner = "2.5.3"
+    tauri-plugin-torch = "0.1"
+    ```
+
+    Then register them on the mobile-only branch of your builder:
+
+    `src-tauri/src/lib.rs`
+
+    ```rust
+    #[cfg_attr(mobile, tauri::mobile_entry_point)]
+    pub fn run() {
+        let builder = tauri::Builder::default();
+
+        #[cfg(mobile)]
+        let builder = builder
+            .plugin(tauri_plugin_barcode_scanner::init())
+            .plugin(tauri_plugin_torch::init());
+
+        builder
+            .run(tauri::generate_context!())
+            .expect("error while running tauri application");
+    }
+    ```
+
+    And install both guest bindings:
+
+    ```sh
+    pnpm add @tauri-apps/plugin-barcode-scanner @sosweetham/tauri-plugin-torch-api
+    ```
+
+    If you also need the torch commands on desktop (where they report the torch
+    as off), keep `tauri-plugin-torch` in the regular `[dependencies]` and
+    register it outside the `#[cfg(mobile)]` branch instead.
+
+2. Allow both plugins' commands. Neither is registered on desktop, so enable
+   them in a mobile-only capability (and leave `torch:default` out of your
+   desktop capability):
+
+    `src-tauri/capabilities/mobile.json`
+
+    ```json
+    {
+        "identifier": "mobile",
+        "platforms": ["android", "iOS"],
+        "windows": ["main"],
+        "permissions": ["barcode-scanner:default", "torch:default"]
+    }
+    ```
+
+3. Scan with `windowed: true` so your webview UI, including the torch button,
+   stays visible on top of the camera preview (the scanner makes the webview
+   transparent; see the barcode scanner docs for the styling this needs), and
+   call the torch API while the scan is pending:
+
+    ```ts
+    import {
+        cancel,
+        Format,
+        requestPermissions,
+        scan,
+    } from "@tauri-apps/plugin-barcode-scanner";
+    import { isAvailable, toggle } from "@sosweetham/tauri-plugin-torch-api";
+
+    async function startScan() {
+        if ((await requestPermissions()) !== "granted") return;
+
+        // show the torch button only on devices that have a torch
+        torchButton.hidden = !(await isAvailable());
+
+        try {
+            const result = await scan({ windowed: true, formats: [Format.QRCode] });
+            console.log(result.content);
+        } finally {
+            torchButton.hidden = true;
+        }
+    }
+
+    torchButton.onclick = async () => {
+        const on = await toggle();
+        torchButton.textContent = on ? "Torch off" : "Torch on";
+    };
+
+    cancelButton.onclick = () => cancel();
+    ```
+
+The torch goes off together with the camera when the scan finishes or is
+cancelled. `isEnabled` reads the hardware state, so it reports that too; use it
+instead of tracking the state yourself if your UI outlives the scan. To turn
+the torch off before the scan ends, call `disable()`.
+
+The
+[plugins-workspace API example](https://github.com/tauri-apps/plugins-workspace/blob/v2/examples/api/src/views/Scanner.svelte)
+shows a full scanner UI with a torch button.
 
 ### Rust
 
